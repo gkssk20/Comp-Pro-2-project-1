@@ -20,7 +20,7 @@ public class login {
             }
             System.out.println("Login Success! You logged in as a " + userType + " . PLease selection from brlow options. ");
             if(userType.equals("admin")){
-                //going to print admin related menu
+                displayAdminMenu(conn);
 
             } else {
                 //going to print student related menu
@@ -30,7 +30,7 @@ public class login {
 
     }
 
-    public void displayAdminMenu(){
+    public void displayAdminMenu(Connection conn) throws SQLException{
         int choice;
 
         do{
@@ -48,6 +48,7 @@ public class login {
             choice = sc.nextInt();
             switch (choice){
                 case 1: 
+                    searchBook(conn);
                     break;
                 case 2:
                     break;
@@ -69,15 +70,18 @@ public class login {
         } while (choice != 7);
     }
 
-    private void searchBook(){
+    private void searchBook(Connection conn) throws SQLException{
+        bookPage bookPage = new bookPage();
         System.out.println("1. Search with book ISBN: ");
         System.out.println("2. Search with Author's name.");
         System.out.println("Please enter your choice:");
         int choice = sc.nextInt();
         switch(choice){
             case 1:
+                bookPage.searchByISBN(conn);
                 break;
             case 2:
+                bookPage.searchByAuthorName(conn);
                 
         }
     }
