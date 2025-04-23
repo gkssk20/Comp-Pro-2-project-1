@@ -18,7 +18,7 @@ public class login {
                 System.out.println("Invalid User");
                 return;
             }
-            System.out.println("Login Success! You logged in as a " + userType + " . PLease selection from brlow options. ");
+            System.out.println("Login Success! You logged in as a " + userType + ". PLease selection from below options. ");
             if(userType.equals("admin")){
                 displayAdminMenu(conn);
 
@@ -32,6 +32,8 @@ public class login {
 
     public void displayAdminMenu(Connection conn) throws SQLException{
         int choice;
+        bookPage bookPage = new bookPage();
+        studentPage studentPage = new studentPage();
 
         do{
             System.out.println("//////////////////////////////////////");
@@ -44,19 +46,23 @@ public class login {
             System.out.println("7. Exit from application. ");
             System.out.println("//////////////////////////////////////");
 
-            System.out.println("Please enter your hoice: ");
+            System.out.println("Please enter your choice: ");
             choice = sc.nextInt();
             switch (choice){
                 case 1: 
                     searchBook(conn);
                     break;
                 case 2:
+                    bookPage.addBook(conn);
                     break;
                 case 3:
+                    bookPage.updateBookQty(conn);
                     break;
                 case 4: 
+                    bookPage.getAllBooks(conn);
                     break;
                 case 5:
+                    studentPage.addStudent(conn);
                     break;
                 case 6:
                     break;
