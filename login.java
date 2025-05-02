@@ -23,8 +23,7 @@ public class login {
                 displayAdminMenu(conn);
 
             } else {
-                //going to print student related menu
-
+                displayStudentMenu(conn);
             }
         }
 
@@ -65,6 +64,7 @@ public class login {
                     studentPage.addStudent(conn);
                     break;
                 case 6:
+                    studentPage.getAllStudents(conn);
                     break;
                 case 7:
                     System.out.println("Thank you for using library managment system!");
@@ -75,6 +75,42 @@ public class login {
 
         } while (choice != 7);
     }
+public void displayStudentMenu(Connection conn) throws SQLException{
+    int choice;
+    bookPage bookPage = new bookPage();
+    studentPage studentPage = new studentPage();
+
+    do{
+        System.out.println("//////////////////////////////////////");
+        System.out.println("1. Search a book. ");
+        System.out.println("2. Check out Book");
+        System.out.println("3. Return a Book");
+        System.out.println("4. Exit from application. ");
+        System.out.println("//////////////////////////////////////");
+
+        System.out.println("Please enter your choice: ");
+        choice = sc.nextInt();
+        switch (choice){
+            case 1: 
+                searchBook(conn);
+                break;
+            case 2:
+                bookPage.checkOutBook(conn);
+                break;
+            case 3:
+                bookPage.returnBook(conn);
+                break;
+            case 4: 
+               System.out.println("Thank you for using our Library!");
+               System.exit(0);
+            default:
+            System.out.println("Please select a valid option. ");
+        }
+
+    } while (choice != 4);
+}
+
+
 
     private void searchBook(Connection conn) throws SQLException{
         bookPage bookPage = new bookPage();

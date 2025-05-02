@@ -105,4 +105,69 @@ public class bookPage {
 
     }
 
+    public void checkOutBook(Connection conn) throws SQLException{
+       
+       studentdatabase database = new studentdatabase();
+        System.out.println("Enter registration number: ");
+        String regNum = sc.nextLine();
+
+        boolean isExist = database.getStudentByRegNum(conn, regNum);
+
+        if(!isExist){
+            System.out.println("Student is not Registered. Get Registered first.");
+            return;
+        }
+        getAllBooks(conn);
+        System.out.println("Enter ISBN of Book to be Checked out.");
+        int ISBN = sc.nextInt();
+        sc.nextLine();
+
+        booksdatabase booksdatabase = new booksdatabase();
+        book book =  booksdatabase.getBooksByISBN(conn, ISBN);
+        
+
+        if(book == null){
+            System.out.println("Book is not available.");
+            return;
+        }
+
+        book.setBookQty(book.getBookQty() -1);
+
+        int id = database.getStudentByRegNum2(conn, regNum);
+
+        database.saveBookingDetails(conn, id, book.getId(), 1);
+        booksdatabase.updateBookQty(conn, book);
+
+
+
+    }
+
+
+    public void returnBook(Connection conn) throws SQLException{
+        studentdatabase database = new studentdatabase();
+        System.out.println("Enter registration number: ");
+        String regNum = sc.nextLine();
+        boolean isExist = database.getStudentByRegNum(conn, regNum);
+        if(!isExist){
+            System.out.println("Student is not registered. Get registered first");
+            return;
+        }
+
+        int id = database.getStudentByRegNum2(conn, regNum);
+        List<bookingdetails> bookingdetails = database.getBookDetailsID(conn, id);
+        bookingdetails.stream().forEach(b->System.out.println(b.ISBN + "\t\t\t" +b.bookName + "\t\t\t"+b.authorName));
+        System.out.println("Enter the ISBN of book to be returned");
+        int ISBN = sc.nextInt();
+        sc.nextLine();
+        bookingdetails filterDetails = bookingdetails.stream().filter(b->b.getISBN()==ISBN).findAny().orElse(null);
+
+        booksdatabase booksdatabase = new booksdatabase();
+        book book = booksdatabase.getBooksByISBN(conn, ISBN);
+        book.setBookQty(book.getBookQty()+1);
+
+        booksdatabase.updateBookQty(conn, book);
+        database.deleteBookingDetails(conn, filterDetails.getId());        
+
+    }
+
 }

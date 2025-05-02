@@ -1,6 +1,5 @@
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -45,18 +44,10 @@ public class studentPage {
         database.saveStudent(conn, studentName, regNum);
 
     }
-    public void getAllBooks(Connection conn) throws SQLException{
-        booksdatabase database = new booksdatabase();
-        List <book> books = database.getAllBooks(conn);
-        System.out.println("+------------+-------------------------------------+--------------------+------------");
-        System.out.println("| Book ISBN  | Name                                | Author Name        | Quantity  |");
-        System.out.println("+------------+-------------------------------------+--------------------+------------"); 
-        for(book book: books){
-           
-           // System.out.println(book.getISBN() + "        " + book.getBookName() + "       " + book.getAuthorName());
-            System.out.printf("| %-10s | %-18s | %-16s | %-13s | \n", book.getISBN(), book.getBookName(), book.getAuthorName(), book.getBookQty());
-            System.out.println("+------------+------------------------4-------+--------------------+------------+");
-        }
+    
+    public void getAllStudents(Connection conn) throws SQLException{
+      studentdatabase database = new studentdatabase();
+      database.getAllStudents(conn);
     }
 
 
