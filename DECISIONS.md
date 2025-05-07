@@ -1,6 +1,6 @@
 # Comp-Pro-2-project-1
 ### Created by Kylie Thompson Brielle Hoffman and Hanna Jung
-## This file is a duplicate of what it was originally. Original file has been abandoned because someone accidentally deleted hers at her local folder, which messed everything up 
+#### This file is a duplicate of what it was originally. Original file has been abandoned because someone accidentally deleted hers at her local folder, which messed everything up 
 ### original file with history of commits: https://github.com/bh1423/Comp-Pro-2-project-1
 ### We are first going to work on user and book management
 ### created mysql server!
